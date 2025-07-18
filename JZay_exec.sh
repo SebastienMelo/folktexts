@@ -10,7 +10,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=24
 
-#SBATCH -A egm@h100
+#SBATCH -A nuj@h100
 #SBATCH -C h100
 #SBATCH --hint=nomultithread
 #SBATCH --time=20:00:00
