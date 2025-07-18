@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J exec-gpu
-
+#SBATCH --job-name=folktexts-gpu
 #SBATCH -o outslurm/gpu/job%A_%a.out
 #SBATCH -e outslurm/gpu/job%A_%a.err
 
@@ -31,7 +30,7 @@ module purge
 module load arch/h100
 module load pytorch-gpu
 
-pip install --user --no-cache-dir .
+pip install --user --no-cache-dir folktexts
 
 
 A_VALUES=('google/gemma-3-4b-it' 'meta-llama/Llama-3.2-1B')
