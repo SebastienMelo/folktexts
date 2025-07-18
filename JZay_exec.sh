@@ -29,9 +29,9 @@ echo "------------------------------------------------"
 
 module purge
 module load arch/h100
-module load pytorch-gpu/py3/2.5.0
+module load pytorch-gpu
 
-pip install --user --no-cache-dir folktexts torch==2.5.0
+pip install --user --no-cache-dir folktexts
 
 
 A_VALUES=('google/gemma-3-4b-it' 'meta-llama/Llama-3.2-1B')
