@@ -31,7 +31,7 @@ module purge
 module load arch/h100
 module load pytorch-gpu
 
-pip install --user --no-cache-dir folktexts
+pip install --user --no-cache-dir .
 
 
 A_VALUES=('google/gemma-3-4b-it' 'meta-llama/Llama-3.2-1B')
