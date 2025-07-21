@@ -6,7 +6,7 @@ import logging
 import sys
 from argparse import ArgumentParser
 from pathlib import Path
-
+import torch
 DEFAULT_ACS_TASK = "ACSIncome"
 
 DEFAULT_BATCH_SIZE = 16
@@ -198,4 +198,5 @@ def main():
 
 
 if __name__ == "__main__":
+    print(torch.cuda.is_available())
     main()
