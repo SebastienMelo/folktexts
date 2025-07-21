@@ -28,9 +28,8 @@ echo "------------------------------------------------"
 
 module purge
 module load arch/h100
-module load miniforge/24.9.0
+module load pytorch-gpu/py3/2.7.0
 
-conda activate folktexts
 
 model_dir=$DSDIR/HuggingFace_Models/
 
