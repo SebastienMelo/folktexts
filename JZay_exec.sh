@@ -14,7 +14,7 @@
 #SBATCH --hint=nomultithread
 #SBATCH --time=20:00:00
 
-#SBATCH --array=0-6
+#SBATCH --array=0-7
 
 echo "------------------------------------------------"
 echo "Slurm Job ID: $SLURM_JOB_ID"  
