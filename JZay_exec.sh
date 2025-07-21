@@ -36,5 +36,5 @@ conda activate folktexts
 A_VALUES=('google/gemma-3-4b-it' 'meta-llama/Llama-3.2-1B')
 
 
-python -m folktexts.cli.run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data
+python -m folktexts.cli.run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results
 # srun run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --results-dir folktexts-results --data-dir data
