@@ -13,6 +13,7 @@
 #SBATCH -C h100
 #SBATCH --hint=nomultithread
 #SBATCH --time=70:00:00
+#SBATCH --qos=qos_gpu-t4
 
 #SBATCH --array=0-2
 
