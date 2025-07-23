@@ -178,3 +178,7 @@ cython_debug/
 # sphinx docs
 docs/_build/
 docs/notebooks/
+
+# Results
+folktexts-results/
+notebooks/data/folktables/
