@@ -34,7 +34,7 @@ module load pytorch-gpu/py3/2.7.0
 
 model_dir=$DSDIR/HuggingFace_Models/
 
-A_VALUES=('google/gemma-3-27b-it' 'google/gemma-3-27b-pt' 'meta-llama/Meta-Llama-3-8B-Instruct')
+A_VALUES=('deepseek-ai/DeepSeek-R1-Distill-Llama-70B' 'deepseek-ai/DeepSeek-R1-Distill-Llama-8B' 'deepseek-ai/DeepSeek-R1-Distill-Qwen-14B' 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B')
 
 
 python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results --batch-size 32
