@@ -15,7 +15,7 @@
 #SBATCH --time=70:00:00
 #SBATCH --qos=qos_gpu_h100-t4
 
-#SBATCH --array=0-3
+#SBATCH --array=0-6
 
 echo "------------------------------------------------"
 echo "Slurm Job ID: $SLURM_JOB_ID"  
@@ -34,7 +34,7 @@ module load pytorch-gpu/py3/2.7.0
 
 model_dir=$DSDIR/HuggingFace_Models/
 
-A_VALUES=('Qwen/Qwen2-1.5B' 'Qwen/Qwen2-1.5B-Instruct' 'Qwen/Qwen2-72B' 'Qwen/Qwen2-57B-A14B')
+A_VALUES=('meta-llama/Llama-4-Scout-17B-16E-Instruct' 'meta-llama/Llama-4-Scout-17B-16E-Instruct' 'openai/gpt-oss-120b' 'openai/gpt-oss-20b' 'Qwen/QwQ-32B' 'microsoft/phi-4' 'meta-llama/Llama-3.3-70B-Instruct')
 
 
 python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results --batch-size 32
