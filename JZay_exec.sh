@@ -34,7 +34,7 @@ module load pytorch-gpu/py3/2.7.0
 
 model_dir=$DSDIR/HuggingFace_Models/
 
-A_VALUES=('Qwen/Qwen2.5-VL-3B-Instruct' 'Qwen/Qwen2.5-VL-7B-Instruct' 'Qwen/Qwen2.5-VL-32B-Instruct' 'Qwen/Qwen2.5-VL-72B-Instruct')
+A_VALUES=('Qwen/Qwen2-7B' 'Qwen/Qwen2-7B-Instruct' 'Qwen/Qwen2-VL-72B' 'Qwen/Qwen2-72B-Instruct')
 
 
 python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results --batch-size 32
