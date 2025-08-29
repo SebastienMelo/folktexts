@@ -44,5 +44,5 @@ A_VALUES=('google/gemma-2-9b' 'google/gemma-2-27b' 'google/gemma-2-27b-it' 'goog
 'deepseekai/DeepSeek-R1-Distill-Llama-8B' 'deepseekai/DeepSeek-R1-Distill-Llama-70B')
 
 
-python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results-numeric_prompt --batch-size 32 --numeric-risk-prompting True
+python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results-numeric_prompt --batch-size 32 --numeric-risk-prompting
 # srun run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --results-dir folktexts-results --data-dir data
