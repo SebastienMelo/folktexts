@@ -15,7 +15,7 @@
 #SBATCH --time=72:00:00
 #SBATCH --qos=qos_gpu_h100-t4
 
-#SBATCH --array=0-3
+#SBATCH --array=0-10
 
 echo "------------------------------------------------"
 echo "Slurm Job ID: $SLURM_JOB_ID"  
@@ -34,7 +34,10 @@ module load pytorch-gpu/py3/2.7.0
 
 model_dir=$DSDIR/HuggingFace_Models/
 
-A_VALUES=('meta-llama/Meta-Llama-3-8B' 'meta-llama/Meta-Llama-3-8B-Instruct' 'meta-llama/Llama-3.1-8B' 'meta-llama/Llama-3.1-8B-Instruct')
+A_VALUES=('meta-llama/Llama-3.2-3B' 'meta-llama/Llama-3.2-3B-Instruct' 
+'meta-llama/Llama-3.3-70B-Instruct' 'meta-llama/Meta-Llama-3-70B' 'meta-llama/Meta-Llama-3-70B-Instruct' 
+'meta-llama/Meta-Llama-3-8B' 'meta-llama/Meta-Llama-3-8B-Instruct' 'meta-llama/Llama-3.1-8B' 'meta-llama/Llama-3.1-8B-Instruct'
+'meta-llama/Llama-3.2-1B' 'meta-llama/Llama-3.2-1B-Instruct')
 
-python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results-added-seed --batch-size 32 --seed 0
+python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results-added-seed-numeric-prompt --batch-size 32 --seed 0 --numeric-risk-prompting
 # srun run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --results-dir folktexts-results --data-dir data
