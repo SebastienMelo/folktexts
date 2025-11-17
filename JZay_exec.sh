@@ -1,4 +1,4 @@
-#!/bin/bash
+    #!/bin/bash
 
 #SBATCH --job-name=folktexts-gpu
 #SBATCH -o outslurm/gpu/job%A_%a.out
@@ -15,7 +15,7 @@
 #SBATCH --time=72:00:00
 #SBATCH --qos=qos_gpu_h100-t4
 
-#SBATCH --array=0-3
+#SBATCH --array=0-2
 
 echo "------------------------------------------------"
 echo "Slurm Job ID: $SLURM_JOB_ID"  
@@ -34,7 +34,7 @@ module load pytorch-gpu/py3/2.7.0
 
 model_dir=$DSDIR/HuggingFace_Models/
 
-A_VALUES=('google/gemma-3-12b-pt' 'google/gemma-3-12b-it' 'google/gemma-3-27b-pt' 'google/gemma-3-27b-it')
+A_VALUES=('google/gemma-2-27b' 'microsoft/phi-4' 'mistralai/Mixtral-8x7B-Instruct-v0.1')
 
-python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results --batch-size 32 
+python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results2 --batch-size 32 
 # srun run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --results-dir folktexts-results --data-dir data
