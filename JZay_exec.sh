@@ -1,4 +1,4 @@
-    #!/bin/bash
+#!/bin/bash
 
 #SBATCH --job-name=folktexts-gpu
 #SBATCH -o outslurm/gpu/job%A_%a.out
