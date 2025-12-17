@@ -282,7 +282,7 @@ class Benchmark:
             data=X_test,
             predictions_save_path=test_predictions_save_path,
             labels=y_test,  # used only to save alongside predictions in disk
-        )
+        )[0]
         self._y_test_scores = self.llm_clf._get_positive_class_scores(self._y_test_scores)
 
         # If requested, fit the threshold on a small portion of the train set

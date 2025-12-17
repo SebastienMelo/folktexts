@@ -182,3 +182,7 @@ docs/notebooks/
 # Results
 folktexts-results/
 notebooks/data/folktables/
+deferral_experiment/
+glestimation/
+merged_datasets/
+folktexts-results-metamodel/

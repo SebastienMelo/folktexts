@@ -187,8 +187,9 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
         """Uses the provided data sample to fit the prediction threshold."""
 
         # Compute risk estimates for the data
+        probs, hidden_states = self.predict_proba(X, **kwargs)
         y_pred_scores = self._get_positive_class_scores(
-            self.predict_proba(X, **kwargs)
+            probs
         )
 
         # Compute the best threshold for the given data
@@ -284,8 +285,8 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                 f"`data` must be a pd.DataFrame, received {type(data)} instead.")
 
         # Compute risk estimates
-        risk_scores = self.compute_risk_estimates_for_dataframe(df=data)
-
+        risk_scores, hidden_states = self.compute_risk_estimates_for_dataframe(df=data)
+        # print(data.index)
         # Save to disk if `predictions_save_path` is provided
         if predictions_save_path is not None:
             predictions_save_path = Path(predictions_save_path).with_suffix(".csv")
@@ -293,8 +294,43 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
             predictions_df = pd.DataFrame(risk_scores, index=data.index, columns=[SCORE_COL_NAME])
             predictions_df[LABEL_COL_NAME] = labels
             predictions_df.to_csv(predictions_save_path, index=True, mode="w")
+            
+            # Save hidden states if they exist
+            if hidden_states.size > 0:
+                hidden_states_base_path = predictions_save_path.parent / f"{predictions_save_path.stem}_hidden_states"
+                hidden_states_base_path.mkdir(parents=True, exist_ok=True)
+                
+                # Assuming hidden_states shape is (n_samples, n_layers, hidden_dim)
+                # or a list/dict structure containing hidden states per layer
+                if isinstance(hidden_states, dict):
+                    # If hidden_states is a dict with layer keys
+                    for layer_name, layer_hidden_states in hidden_states.items():
+                        layer_path = hidden_states_base_path / f"layer_{layer_name}.csv"
+                        hidden_states_df = pd.DataFrame(
+                            layer_hidden_states,
+                            index=data.index
+                        )
+                        hidden_states_df.to_csv(layer_path, index=True)
+                elif len(hidden_states.shape) == 3:
+                    # If hidden_states shape is (n_samples, n_layers, hidden_dim)
+                    n_layers = hidden_states.shape[1]
+                    for layer_idx in range(n_layers):
+                        layer_path = hidden_states_base_path / f"layer_{layer_idx}.csv"
+                        hidden_states_df = pd.DataFrame(
+                            hidden_states[:, layer_idx, :],
+                            index=data.index
+                        )
+                        hidden_states_df.to_csv(layer_path, index=True)
+                else:
+                    # Single layer case
+                    layer_path = hidden_states_base_path / "layer_0.csv"
+                    hidden_states_df = pd.DataFrame(
+                        hidden_states,
+                        index=data.index
+                    )
+                    hidden_states_df.to_parquet(layer_path.with_suffix(".parquet"), index=True)
 
-        return self._make_predictions_multiclass(risk_scores)
+        return self._make_predictions_multiclass(risk_scores), hidden_states
 
     @abstractmethod
     def _query_prompt_risk_estimates_batch(
@@ -328,6 +364,7 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
         fill_value = -1
         risk_scores = np.empty(len(df))
         risk_scores.fill(fill_value)    # fill with -1's
+        hidden_states = np.empty((len(df), 29, 3072))  # placeholder for hidden states
 
         batch_size = self._inference_kwargs["batch_size"]
         context_size = self._inference_kwargs["context_size"]
@@ -364,7 +401,7 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                 ]
 
                 # Query the model with the batch of data
-                risk_estimates_batch = self._query_prompt_risk_estimates_batch(
+                risk_estimates_batch, hidden_states_batch = self._query_prompt_risk_estimates_batch(
                     prompts_batch=data_texts_batch,
                     question=q,
                     context_size=context_size,
@@ -374,10 +411,10 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                 batch_risk_scores[:, q_idx] = np.clip(risk_estimates_batch, 0, 1)
 
             risk_scores[start_idx: end_idx] = batch_risk_scores.mean(axis=1)
-
+            hidden_states[start_idx: end_idx, :, :] = hidden_states_batch.transpose(1, 0, 2)
         # Check that all risk scores were computed
         assert not np.isclose(risk_scores, fill_value).any()
-        return risk_scores
+        return risk_scores, hidden_states
 
     def compute_risk_estimates_for_dataset(
         self,

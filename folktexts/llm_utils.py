@@ -56,12 +56,19 @@ def query_model_batch(
 
     # Query: run one forward pass, i.e., generate the next token
     with torch.no_grad():
-        logits = model(input_ids=tensor_inputs, attention_mask=attention_mask).logits
+        outputs = model(input_ids=tensor_inputs, attention_mask=attention_mask, output_hidden_states=True)
+        logits = outputs.logits
+        # Get hidden states of the last token for all layers
+        # print(len(outputs.hidden_states))
+        # print(outputs.hidden_states[0].shape)
+        last_token_hidden_states = [layer_hidden[:, -1, :] for layer_hidden in outputs.hidden_states]
 
     # Probabilities corresponding to the last token after the prompt
     last_token_logits = logits[torch.arange(len(idx_last_token)), idx_last_token]
     last_token_probs = torch.nn.functional.softmax(last_token_logits, dim=-1)
-    return last_token_probs.to(dtype=torch.float16).cpu().numpy()
+    # Convert last token hidden states to numpy
+    last_token_hidden_states_np = torch.stack(last_token_hidden_states).to(dtype=torch.float16).cpu().numpy()
+    return last_token_probs.to(dtype=torch.float16).cpu().numpy(), last_token_hidden_states_np
 
 
 def query_model_batch_multiple_passes(
@@ -119,7 +126,7 @@ def query_model_batch_multiple_passes(
 
     for iter in range(n_passes):
         # Query the model with the current batch
-        current_probs = query_model_batch(current_batch, model, tokenizer, context_size)
+        current_probs, hidden_states = query_model_batch(current_batch, model, tokenizer, context_size)
 
         # Filter out probabilities for tokens that are not allowed
         current_probs[:, ~allowed_tokens_filter] = 0
@@ -141,7 +148,7 @@ def query_model_batch_multiple_passes(
     last_token_probs_array = np.array(last_token_probs)
     last_token_probs_array = np.moveaxis(last_token_probs_array, 0, 1)
     assert last_token_probs_array.shape == (len(text_inputs), n_passes, len(tokenizer.vocab))
-    return last_token_probs_array
+    return last_token_probs_array, hidden_states
 
 
 def add_pad_token(tokenizer):

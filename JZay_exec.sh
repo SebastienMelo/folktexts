@@ -15,7 +15,7 @@
 #SBATCH --time=72:00:00
 #SBATCH --qos=qos_gpu_h100-t4
 
-#SBATCH --array=0-3
+#SBATCH --array=0-4
 
 echo "------------------------------------------------"
 echo "Slurm Job ID: $SLURM_JOB_ID"  
@@ -32,9 +32,10 @@ module load arch/h100
 module load pytorch-gpu/py3/2.7.0
 
 
-model_dir=$DSDIR/HuggingFace_Models/
+model_dir=$DSDIR/HuggingFace_Models/meta-llama/Llama-3.2-3B
 
-A_VALUES=('google/gemma-3-12b-pt' 'google/gemma-3-12b-it' 'google/gemma-3-27b-pt' 'google/gemma-3-27b-it')
+# A_VALUES=('google/gemma-3-12b-pt' 'google/gemma-3-12b-it' 'google/gemma-3-27b-pt' 'google/gemma-3-27b-it')
+T_VALUES=('ACSMobility' 'ACSPublicCoverage' 'ACSTravelTime' 'ACSEmployment')
 
-python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --data-dir data --results-dir folktexts-results --batch-size 32 
+python -m folktexts.cli.run_acs_benchmark --model $model_dir --task ${T_VALUES[$SLURM_ARRAY_TASK_ID]} --data-dir data --results-dir folktexts-results-metamodelJZay --batch-size 32 
 # srun run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --results-dir folktexts-results --data-dir data

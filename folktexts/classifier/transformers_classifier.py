@@ -126,7 +126,7 @@ class TransformersLLMClassifier(LLMClassifier):
         # TODO: Add support for any unicode character used as a prefix to " A".
 
         # Query model
-        last_token_probs_batch = query_model_batch_multiple_passes(
+        last_token_probs_batch, hidden_states = query_model_batch_multiple_passes(
             text_inputs=prompts_batch,
             model=self.model,
             tokenizer=self.tokenizer,
@@ -144,4 +144,4 @@ class TransformersLLMClassifier(LLMClassifier):
             for ltp in last_token_probs_batch
         ]
 
-        return risk_estimates_batch
+        return risk_estimates_batch, hidden_states
