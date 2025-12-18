@@ -305,30 +305,30 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                 if isinstance(hidden_states, dict):
                     # If hidden_states is a dict with layer keys
                     for layer_name, layer_hidden_states in hidden_states.items():
-                        layer_path = hidden_states_base_path / f"layer_{layer_name}.csv"
+                        layer_path = hidden_states_base_path / f"layer_{layer_name}.parquet"
                         hidden_states_df = pd.DataFrame(
                             layer_hidden_states,
                             index=data.index
                         )
-                        hidden_states_df.to_csv(layer_path, index=True)
+                        hidden_states_df.to_parquet(layer_path, index=True)
                 elif len(hidden_states.shape) == 3:
                     # If hidden_states shape is (n_samples, n_layers, hidden_dim)
                     n_layers = hidden_states.shape[1]
                     for layer_idx in range(n_layers):
-                        layer_path = hidden_states_base_path / f"layer_{layer_idx}.csv"
+                        layer_path = hidden_states_base_path / f"layer_{layer_idx}.parquet"
                         hidden_states_df = pd.DataFrame(
                             hidden_states[:, layer_idx, :],
                             index=data.index
                         )
-                        hidden_states_df.to_csv(layer_path, index=True)
+                        hidden_states_df.to_parquet(layer_path, index=True)
                 else:
                     # Single layer case
-                    layer_path = hidden_states_base_path / "layer_0.csv"
+                    layer_path = hidden_states_base_path / "layer_0.parquet"
                     hidden_states_df = pd.DataFrame(
                         hidden_states,
                         index=data.index
                     )
-                    hidden_states_df.to_parquet(layer_path.with_suffix(".parquet"), index=True)
+                    hidden_states_df.to_parquet(layer_path, index=True)
 
         return self._make_predictions_multiclass(risk_scores), hidden_states
 
