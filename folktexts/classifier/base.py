@@ -303,6 +303,7 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                 # Assuming hidden_states shape is (n_samples, n_layers, hidden_dim)
                 # or a list/dict structure containing hidden states per layer
                 if isinstance(hidden_states, dict):
+                    print("Saving hidden states from dict structure...")
                     # If hidden_states is a dict with layer keys
                     for layer_name, layer_hidden_states in hidden_states.items():
                         layer_path = hidden_states_base_path / f"layer_{layer_name}.parquet"
@@ -320,6 +321,7 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                             hidden_states[:, layer_idx, :],
                             index=data.index
                         )
+                        hidden_states_df.columns = hidden_states_df.columns.astype(str)
                         hidden_states_df.to_parquet(layer_path, index=True)
                 else:
                     # Single layer case
