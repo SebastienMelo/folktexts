@@ -36,7 +36,7 @@ model_dir=$DSDIR/HuggingFace_Models/meta-llama/Llama-3.3-70B-Instruct
 
 # A_VALUES=('google/gemma-3-12b-pt' 'google/gemma-3-12b-it' 'google/gemma-3-27b-pt' 'google/gemma-3-27b-it')
 T_VALUES=('ACSTravelTime' 'ACSIncome' 'ACSEmployment' 'ACSMobility' 'ACSPublicCoverage')
-S_VALUES=(1 1 0.33 1 1)
+S_VALUES=(1.0 1.0 0.33 1.0 1.0)
 
-python -m folktexts.cli.run_acs_benchmark --model $model_dir --task ${T_VALUES[$SLURM_ARRAY_TASK_ID]} --data-dir data --results-dir folktexts-results-metamodel-Llama70B --batch-size 16  --subsampling ${S_VALUES[$SLURM_ARRAY_TASK_ID]}
+python -m folktexts.cli.run_acs_benchmark --model $model_dir --task ${T_VALUES[$SLURM_ARRAY_TASK_ID]} --data-dir data --results-dir folktexts-results-metamodel-Llama70B --batch-size 8  --subsampling ${S_VALUES[$SLURM_ARRAY_TASK_ID]}
 # srun run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --results-dir folktexts-results --data-dir data
