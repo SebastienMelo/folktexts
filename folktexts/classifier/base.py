@@ -319,7 +319,7 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                         if layer_idx % 5 == 0:
                             layer_path = hidden_states_base_path / f"layer_{layer_idx}.parquet"
                             hidden_states_df = pd.DataFrame(
-                                hidden_states[:, layer_idx, :],
+                                hidden_states[:, layer_idx//5, :],
                                 index=data.index
                             )
                             hidden_states_df.columns = hidden_states_df.columns.astype(str)
@@ -367,7 +367,7 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
         fill_value = -1
         risk_scores = np.empty(len(df))
         risk_scores.fill(fill_value)    # fill with -1's
-        hidden_states = np.empty((len(df), 81, 8192))  # placeholder for hidden states
+        hidden_states = np.empty((len(df), 81//5, 8192))  # placeholder for hidden states
 
         batch_size = self._inference_kwargs["batch_size"]
         context_size = self._inference_kwargs["context_size"]
