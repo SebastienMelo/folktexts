@@ -12,10 +12,10 @@
 #SBATCH -A nuj@h100
 #SBATCH -C h100
 #SBATCH --hint=nomultithread
-#SBATCH --time=72:00:00
+#SBATCH --time=90:00:00
 #SBATCH --qos=qos_gpu_h100-t4
 
-#SBATCH --array=0-103
+#SBATCH --array=0-26
 
 echo "------------------------------------------------"
 echo "Slurm Job ID: $SLURM_JOB_ID"  
@@ -43,13 +43,5 @@ A_VALUES=('google/gemma-2-9b' 'google/gemma-2-27b' 'google/gemma-2-27b-it' 'goog
 'microsoft/Orca-2-13b' 'microsoft/phi-4'
 'deepseekai/DeepSeek-R1-Distill-Llama-8B' 'deepseekai/DeepSeek-R1-Distill-Llama-70B')
 
-T_VALUES=('ACSIncome' 'ACSEmployment' 'ACSMobility' 'ACSTravelTime' 'ACSPublicCoverage')
-
-NUM_MODELS=${#A_VALUES[@]}
-NUM_TASKS=${#T_VALUES[@]}
-
-MODEL_IDX=$((SLURM_ARRAY_TASK_ID / NUM_TASKS))
-TASK_IDX=$((SLURM_ARRAY_TASK_ID % NUM_TASKS))
-
-python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$MODEL_IDX]} --task ${T_VALUES[$TASK_IDX]} --data-dir data --results-dir folktexts-results-ICML --batch-size 16
+python -m folktexts.cli.run_acs_benchmark --model $model_dir${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task 'ACSEmployment' --data-dir data --results-dir folktexts-results-ICML --batch-size 16 --subsampling 0.5 --seed 42
 # srun run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --results-dir folktexts-results --data-dir data
