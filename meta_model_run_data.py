@@ -406,48 +406,48 @@ def run_rain_prediction_task(data_path: Path, model_name: str, results_dir: Path
 
 
 
-    if __name__ == "__main__":
+if __name__ == "__main__":
 
-        parser = argparse.ArgumentParser(description="Run prediction tasks with LLM classifiers")
-        parser.add_argument(
-            "--task",
-            type=str,
-            required=True,
-            choices=["meps", "airline", "course", "rain"],
-            help="Task to run: meps, airline, course, or rain",
-        )
-        parser.add_argument(
-            "--model-name",
-            type=str,
-            default="$DSDIR/",
-            help="Name of the model to use",
-        )
-        parser.add_argument(
-            "--results-dir",
-            type=Path,
-            default=Path("./folktexts-results-metamodel-Llama-70B_full"),
-            help="Directory to save results",
-        )
+    parser = argparse.ArgumentParser(description="Run prediction tasks with LLM classifiers")
+    parser.add_argument(
+        "--task",
+        type=str,
+        required=True,
+        choices=["meps", "airline", "course", "rain"],
+        help="Task to run: meps, airline, course, or rain",
+    )
+    parser.add_argument(
+        "--model-name",
+        type=str,
+        default="$DSDIR/",
+        help="Name of the model to use",
+    )
+    parser.add_argument(
+        "--results-dir",
+        type=Path,
+        default=Path("./folktexts-results-metamodel-Llama-70B_full"),
+        help="Directory to save results",
+    )
 
-        args = parser.parse_args()
+    args = parser.parse_args()
 
-        args.results_dir.mkdir(exist_ok=True, parents=True)
+    args.results_dir.mkdir(exist_ok=True, parents=True)
 
-        task_functions = {
-            "meps": run_meps_task,
-            "airline": run_airline_satisfaction_task,
-            "course": run_course_completion_task,
-            "rain": run_rain_prediction_task,
-        }
+    task_functions = {
+        "meps": run_meps_task,
+        "airline": run_airline_satisfaction_task,
+        "course": run_course_completion_task,
+        "rain": run_rain_prediction_task,
+    }
 
-        data_paths = {
-            "meps": DATA_DIR / "meps_data.csv",
-            "airline": DATA_DIR / "airline_satisfaction.csv",
-            "course": DATA_DIR / "course_completion.csv",
-            "rain": DATA_DIR / "weatherAUS.csv",
-        }
+    data_paths = {
+        "meps": DATA_DIR / "meps_data.csv",
+        "airline": DATA_DIR / "airline_satisfaction.csv",
+        "course": DATA_DIR / "course_completion.csv",
+        "rain": DATA_DIR / "weatherAUS.csv",
+    }
 
-        task_fn = task_functions[args.task]
-        data_path = data_paths[args.task]
-        task_fn(data_path=data_path, model_name=args.model_name, results_dir=args.results_dir)
+    task_fn = task_functions[args.task]
+    data_path = data_paths[args.task]
+    task_fn(data_path=data_path, model_name=args.model_name, results_dir=args.results_dir)
 # %%
