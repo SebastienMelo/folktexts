@@ -12,7 +12,7 @@ ROOT_DIR
 
 MODELS_DIR = ROOT_DIR / "models"
 
-DATA_DIR = ROOT_DIR / "data"
+DATA_DIR = ROOT_DIR / "notebooks/data"
 
 MODEL_NAME = "meta-llama/Llama-3.2-3B"
 # MODEL_NAME = "google/gemma-2b"    # Smaller model that is faster to run
