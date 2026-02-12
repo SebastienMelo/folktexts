@@ -153,7 +153,7 @@ def run_meps_task(data_path: Path, model_name: str, results_dir: Path):
     dataset = Dataset(data=meps_df, task=meps_task, test_size=0.99, val_size=0)
 
     model, tokenizer = load_model_tokenizer(model_name)
-    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=meps_task, batch_size=20, context_length=1000)
+    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=meps_task, batch_size=10, context_length=1000)
 
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
     bench.run(results_root_dir=results_dir)
@@ -226,7 +226,7 @@ def run_airline_satisfaction_task(data_path: Path, model_name: str, results_dir:
     dataset = Dataset(data=airline_df, task=airline_task, test_size=0.99, val_size=0, subsampling=0.5)
 
     model, tokenizer = load_model_tokenizer(model_name)
-    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=airline_task, batch_size=20, context_length=1000)
+    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=airline_task, batch_size=10, context_length=1000)
 
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
     bench.run(results_root_dir=results_dir)
@@ -293,7 +293,7 @@ def run_course_completion_task(data_path: Path, model_name: str, results_dir: Pa
     dataset = Dataset(data=course_df, task=course_task, test_size=0.99, val_size=0, subsampling=0.5)
 
     model, tokenizer = load_model_tokenizer(model_name)
-    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=course_task, batch_size=20, context_length=1000)
+    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=course_task, batch_size=10, context_length=1000)
 
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
     bench.run(results_root_dir=results_dir)
@@ -399,7 +399,7 @@ def run_rain_prediction_task(data_path: Path, model_name: str, results_dir: Path
     dataset = Dataset(data=rain_df, task=rain_task, test_size=0.99, val_size=0, subsampling=0.5)
 
     model, tokenizer = load_model_tokenizer(model_name)
-    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=rain_task, batch_size=20, context_length=1000)
+    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=rain_task, batch_size=10, context_length=1000)
 
     bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
     bench.run(results_root_dir=results_dir)
@@ -441,9 +441,9 @@ if __name__ == "__main__":
     }
 
     data_paths = {
-        "meps": DATA_DIR / "meps_data.csv",
-        "airline": DATA_DIR / "airline_satisfaction.csv",
-        "course": DATA_DIR / "course_completion.csv",
+        "meps": DATA_DIR / "meps.csv",
+        "airline": DATA_DIR / "train.csv",
+        "course": DATA_DIR / "Course_Completion_Prediction.csv",
         "rain": DATA_DIR / "weatherAUS.csv",
     }
 
