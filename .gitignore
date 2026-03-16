@@ -181,6 +181,7 @@ docs/notebooks/
 
 # Results
 folktexts-results/
+folktexts-results-ICML/
 notebooks/data/folktables/
 deferral_experiment/
 glestimation/
@@ -190,3 +191,14 @@ folktexts-results-metamodelJZayclear/
 results_metamodel/
 results_metamodel_acs_only/
 results_metamodel_single_dataset/
+results_metamodel_single_dataset_Llama70B/
+results_metamodel_single_dataset_Llama70B_full/
+resultscamerareadyiclr/
+folktexts-results-numeric_prompt/
+folktexts-results-metamodel-Llama70B/
+folktexts-results-metamodel-Llama70B_full/
+results_metamodel_acs_only_llama70b/
+merged_datasets_Llama70B/
+merged_datasets_Llama70B_full/
+pdf_iclr/
+deferral_icml/
