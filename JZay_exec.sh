@@ -35,7 +35,7 @@ module load pytorch-gpu/py3/2.7.0
 model_dir=$DSDIR/HuggingFace_Models/meta-llama/Llama-3.3-70B-Instruct
 
 # A_VALUES=('google/gemma-3-12b-pt' 'google/gemma-3-12b-it' 'google/gemma-3-27b-pt' 'google/gemma-3-27b-it')
-T_VALUES=('meps' 'airline' 'course' 'rain')
+T_VALUES=('loan' 'smoking' 'heart' 'booking')
 
 python -m meta_model_run_data --task ${T_VALUES[$SLURM_ARRAY_TASK_ID]} --model-name ${model_dir}
 # srun run_acs_benchmark --model ${A_VALUES[$SLURM_ARRAY_TASK_ID]} --task ACSIncome --results-dir folktexts-results --data-dir data

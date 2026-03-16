@@ -405,6 +405,373 @@ def run_rain_prediction_task(data_path: Path, model_name: str, results_dir: Path
     bench.run(results_root_dir=results_dir)
 
 
+def run_loan_default_task(data_path: Path, model_name: str, results_dir: Path):
+    """Run loan default prediction task."""
+    loan_age_col = ColumnToText(
+        "person_age",
+        short_description="age",
+        value_map=lambda x: f"{x} years old",
+    )
+    loan_gender_col = ColumnToText(
+        "person_gender",
+        short_description="gender",
+        value_map=lambda x: x,
+    )
+    loan_education_col = ColumnToText(
+        "person_education",
+        short_description="highest education level",
+        value_map=lambda x: x,
+    )
+    loan_income_col = ColumnToText(
+        "person_income",
+        short_description="annual income",
+        value_map=lambda x: f"${x}"
+    )
+    loan_emp_exp_col = ColumnToText(
+        "person_emp_exp",
+        short_description="Years of employment experience",
+        value_map=lambda x: f"{x} years",
+    )
+    loan_home_ownership_col = ColumnToText(
+        "person_home_ownership",
+        short_description="home ownership status",
+        value_map=lambda x: x,
+    )
+    loan_amnt_col = ColumnToText(
+        "loan_amnt",
+        short_description="loan amount requested",
+        value_map=lambda x: f"${x}"
+    )
+    loan_int_rate_col = ColumnToText(
+        "loan_int_rate",
+        short_description="loan interest rate",
+        value_map=lambda x: f"{x} %",
+    )
+    loan_intent_col = ColumnToText(
+        "loan_intent",
+        short_description="loan intent",
+        value_map=lambda x: x,
+    )
+    loan_percent_income_col = ColumnToText(
+        "loan_percent_income",
+        short_description="loan amount as a percentage of annual income",
+        value_map=lambda x: f"{x} %",
+    )
+    loan_cred_hist_length_col = ColumnToText(
+        "cb_person_cred_hist_length",
+        short_description="credit history length",
+        value_map=lambda x: f"{x} years",
+    )
+
+    TARGET_COL = "loan_status"
+    loan_qa = MultipleChoiceQA(
+        column=TARGET_COL,
+        text="Is the loan likely to be accepted?",
+        choices=(
+            Choice("Yes", 1),
+            Choice("No", 0),
+        ),
+    )
+    loan_status_col = ColumnToText(TARGET_COL, short_description="loan status", question=loan_qa)
+    loan_numeric_qa = DirectNumericQA(
+        column=TARGET_COL,
+        text="What is the probability that the loan will be accepted?",
+    )
+
+    cols = [loan_age_col, loan_gender_col, loan_education_col, loan_income_col,
+            loan_emp_exp_col, loan_home_ownership_col, loan_amnt_col, loan_int_rate_col,
+            loan_intent_col, loan_percent_income_col, loan_cred_hist_length_col, loan_status_col]
+    loan_columns_map = {col.name: col for col in cols}
+
+    loan_task = TaskMetadata(
+        name="LoanDefault",
+        description="Predict whether a loan application will be accepted or not based on applicant information.",
+        features=[col.name for col in cols if col.name != TARGET_COL],
+        target=TARGET_COL,
+        cols_to_text=loan_columns_map,
+        sensitive_attribute="person_gender",
+        multiple_choice_qa=loan_qa,
+        direct_numeric_qa=loan_numeric_qa,
+    )
+    loan_task.use_numeric_qa = False
+
+    loan_df = pd.read_csv(data_path)
+    dataset = Dataset(data=loan_df, task=loan_task, test_size=0.99, val_size=0, subsampling=None)
+
+    model, tokenizer = load_model_tokenizer(model_name)
+    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=loan_task, batch_size=10, context_length=1000)
+
+    bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
+    bench.run(results_root_dir=results_dir)
+
+
+def run_smoking_prediction_task(data_path: Path, model_name: str, results_dir: Path):
+    """Run smoking prediction task."""
+    smoking_gender_col = ColumnToText(
+        "gender",
+        short_description="gender",
+        value_map={"F": "Female", "M": "Male"}
+    )
+    smoking_age_col = ColumnToText(
+        "age",
+        short_description="age",
+        value_map=lambda x: f"{x} years old",
+    )
+    height_col = ColumnToText(
+        "height(cm)",
+        short_description="height",
+        value_map=lambda x: f"{x} cm",
+    )
+    weight_col = ColumnToText(
+        "weight(kg)",
+        short_description="weight",
+        value_map=lambda x: f"{x} kg",
+    )
+    smoking_systolic_col = ColumnToText(
+        "systolic",
+        short_description="systolic blood pressure",
+        value_map=lambda x: f"{x} mmHg",
+    )
+    smoking_relaxation_col = ColumnToText(
+        "relaxation",
+        short_description="diastolic blood pressure",
+        value_map=lambda x: f"{x} mmHg",
+    )
+    smoking_caries_col = ColumnToText(
+        "dental caries",
+        short_description="presence of dental caries",
+        value_map=lambda x: f"{x}",
+    )
+    smoking_cholesterol_col = ColumnToText(
+        "cholesterol",
+        short_description="cholesterol level",
+        value_map=lambda x: f"{x} mg/dL",
+    )
+    smoking_tartar_col = ColumnToText(
+        "tartar",
+        short_description="presence of dental tartar",
+        value_map=lambda x: f"{x}",
+    )
+
+    TARGET_COL = "smoking"
+    smoking_qa = MultipleChoiceQA(
+        column=TARGET_COL,
+        text="Is this person a smoker?",
+        choices=(
+            Choice("Yes", 1),
+            Choice("No", 0),
+        ),
+    )
+    smoking_col = ColumnToText(TARGET_COL, short_description="smoking status", question=smoking_qa)
+    smoking_numeric_qa = DirectNumericQA(
+        colomn=TARGET_COL,
+        text="What is the probability that this person is a smoker?",
+    )
+
+    cols = [smoking_cholesterol_col, smoking_systolic_col, smoking_relaxation_col, smoking_caries_col, smoking_tartar_col,
+            smoking_gender_col, smoking_age_col, height_col, weight_col, smoking_col]
+    
+    smoking_columns_map = {col.name: col for col in cols}
+
+    smoking_task = TaskMetadata(
+        name="SmokingPrediction",
+        description="Predict whether a person is a smoker based on health and dental information.",
+        features=[col.name for col in cols if col.name != TARGET_COL],
+        target=TARGET_COL,
+        cols_to_text=smoking_columns_map,
+        sensitive_attribute="gender",
+        multiple_choice_qa=smoking_qa,
+        direct_numeric_qa=smoking_numeric_qa,
+    )
+
+    smoking_task.use_numeric_qa = False
+    smoking_df = pd.read_csv(data_path)
+    dataset = Dataset(data=smoking_df, task=smoking_task, test_size=0.99, val_size=0, subsampling=0.99)
+    model, tokenizer = load_model_tokenizer(model_name)
+    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=smoking_task, batch_size=10, context_length=1000)
+    bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
+    bench.run(results_root_dir=results_dir)
+
+
+def run_heart_disease_prediction_task(data_path: Path, model_name: str, results_dir: Path):
+    """Run heart disease prediction task."""
+    heart_sex_col = ColumnToText(
+        "Sex",
+        short_description="gender",
+        value_map=lambda x: f"{x}",
+    )
+    heart_physical_health_col = ColumnToText(
+        "PhysicalHealth",
+        short_description="number of days in the past month with poor physical health",
+        value_map=lambda x: f"{x} days",
+    )
+
+    heart_mental_health_col = ColumnToText(
+        "MentalHealth",
+        short_description="number of days in the past month with poor mental health",
+        value_map=lambda x: f"{x} days",
+    )
+
+    heart_physical_activity_col = ColumnToText(
+        "PhysicalActivity",
+        short_description="whether the person engages in physical activity",
+        value_map=lambda x: f'{x}',
+    )
+
+    heart_sleep_hours_col = ColumnToText(
+        "SleepTime",
+        short_description="average number of hours of sleep per day",
+        value_map=lambda x: f"{x} hours",
+    )
+
+    heart_age_col = ColumnToText(
+        "AgeCategory",
+        short_description="age category",
+        value_map=lambda x: f"{x}",
+    )
+
+    heart_bmi_col = ColumnToText(
+        "BMI",
+        short_description="body mass index",
+        value_map=lambda x: f"{x}",
+    )
+
+    heart_race_col = ColumnToText(
+        "Race",
+        short_description="race of the person",
+        value_map=lambda x: f"{x}",
+    )
+
+    heart_alcohol_col = ColumnToText(
+        "AlcoholDrinking",
+        short_description="whether the person is an alcohol drinker",
+        value_map=lambda x: f"{x}",
+    )
+
+    heart_general_health_col = ColumnToText(
+        "GenHealth",
+        short_description="self-rated general health status",
+        value_map=lambda x: f"{x}",
+    )
+
+    TARGET_COL = "HeartDisease"
+    heart_disease_qa = MultipleChoiceQA(
+        column=TARGET_COL,
+        text="Does this person have heart disease?",
+        choices=(
+            Choice("Yes", 1),
+            Choice("No", 0),
+        ),
+    )
+    heart_disease_col = ColumnToText(TARGET_COL, short_description="heart disease status", question=heart_disease_qa)
+    heart_disease_numeric_qa = DirectNumericQA(
+        column=TARGET_COL,
+        text="What is the probability that this person has heart disease?",
+    )
+    
+    cols = [heart_age_col, heart_bmi_col, heart_general_health_col, heart_mental_health_col, heart_physical_activity_col,
+            heart_race_col, heart_sleep_hours_col, heart_sex_col, heart_physical_health_col, heart_alcohol_col, heart_disease_col]
+
+    heart_columns_map = {col.name: col for col in cols}
+    heart_disease_task = TaskMetadata(
+        name="HeartDiseasePrediction",
+        description="Predict whether a person has heart disease based on health and demographic information.",
+        features=[col.name for col in cols if col.name != TARGET_COL],
+        target=TARGET_COL,
+        cols_to_text=heart_columns_map,
+        sensitive_attribute="Sex",
+        multiple_choice_qa=heart_disease_qa,
+        direct_numeric_qa=heart_disease_numeric_qa,
+    )
+    heart_disease_task.use_numeric_qa = False
+    heart_df = pd.read_csv(data_path)
+    dataset = Dataset(data=heart_df, task=heart_disease_task, test_size=0.99, val_size=0, subsampling=0.15)
+    model, tokenizer = load_model_tokenizer(model_name)
+    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=heart_disease_task, batch_size=10, context_length=1000)
+    bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
+    bench.run(results_root_dir=results_dir)
+
+
+def run_booking_cancellation_prediction_task(data_path: Path, model_name: str, results_dir: Path):
+    """Run hotel booking cancellation prediction task."""
+    booking_nb_adults_col = ColumnToText(
+        "number of adults",
+        short_description="number of adults included in the booking",
+        value_map=lambda x: f"{x}",
+    )
+    booking_number_children_col = ColumnToText(
+        "number of children",
+        short_description="number of children included in the booking",
+        value_map=lambda x: f"{x}",
+    )
+    booking_weekend_nights_col = ColumnToText(
+        "number of weekend nights",
+        short_description="number of weekend nights included in the booking",
+        value_map=lambda x: f"{x}",
+    )
+    booking_week_nights_col = ColumnToText(
+        "number of week nights",
+        short_description="number of week nights included in the booking",
+        value_map=lambda x: f"{x}",
+    )
+    booking_car_col = ColumnToText(
+        "car parking spaces",
+        short_description="booking includes car parking spaces",
+        value_map={0: "No", 1: "Yes"},
+    )
+    booking_lead_time_col = ColumnToText(
+        "lead time",
+        short_description="number of days between booking and arrival",
+        value_map=lambda x: f"{x} days",
+    )
+    booking_average_price_col = ColumnToText(
+        "average price",
+        short_description="average price per night of the booking",
+        value_map=lambda x: f"${x}",
+    )
+    booking_special_requests_col = ColumnToText(
+        "special requests",
+        short_description="number of special requests included in the booking",
+        value_map=lambda x: f"{x}",
+    )
+
+    TARGET_COL = "booking status"
+    booking_qa = MultipleChoiceQA(
+        column=TARGET_COL,
+        text="Is this booking likely to be canceled?",
+        choices=(
+            Choice("Canceled", 1),
+            Choice("Not canceled", 0),
+        ),
+    )
+    booking_status_col = ColumnToText(TARGET_COL, short_description="booking status", question=booking_qa)
+    booking_numeric_qa = DirectNumericQA(
+        column=TARGET_COL,
+        text="What is the probability that this booking will be canceled?",
+    )
+    cols = [booking_nb_adults_col, booking_number_children_col, booking_weekend_nights_col,
+            booking_week_nights_col, booking_car_col, booking_lead_time_col,
+            booking_average_price_col, booking_special_requests_col, booking_status_col]
+    booking_columns_map = {col.name: col for col in cols}
+    booking_task = TaskMetadata(
+        name="HotelBookingCancellation",
+        description="Predict whether a hotel booking will be canceled based on booking details.",
+        features=[col.name for col in cols if col.name != TARGET_COL],
+        target=TARGET_COL,
+        cols_to_text=booking_columns_map,
+        sensitive_attribute=None,
+        multiple_choice_qa=booking_qa,
+        direct_numeric_qa=booking_numeric_qa,
+    )
+    booking_task.use_numeric_qa = False
+    booking_df = pd.read_csv(data_path)
+    dataset = Dataset(data=booking_df, task=booking_task, test_size=0.99, val_size=0, subsampling=None)
+    model, tokenizer = load_model_tokenizer(model_name)
+    llm_clf = TransformersLLMClassifier(model=model, tokenizer=tokenizer, task=booking_task, batch_size=10, context_length=1000)
+    bench = Benchmark(llm_clf=llm_clf, dataset=dataset)
+
+    bench.run(results_root_dir=results_dir)
+
 
 if __name__ == "__main__":
 
@@ -438,6 +805,10 @@ if __name__ == "__main__":
         "airline": run_airline_satisfaction_task,
         "course": run_course_completion_task,
         "rain": run_rain_prediction_task,
+        "loan": run_loan_default_task,
+        "smoking": run_smoking_prediction_task,
+        "heart": run_heart_disease_prediction_task,
+        "booking": run_booking_cancellation_prediction_task,
     }
 
     data_paths = {
@@ -445,6 +816,10 @@ if __name__ == "__main__":
         "airline": DATA_DIR / "train.csv",
         "course": DATA_DIR / "Course_Completion_Prediction.csv",
         "rain": DATA_DIR / "weatherAUS.csv",
+        "loan": DATA_DIR / "loan.csv",
+        "smoking": DATA_DIR / "smoking.csv",
+        "heart": DATA_DIR / "heart_2020_cleaned.csv",
+        "booking": DATA_DIR / "booking.csv",
     }
 
     task_fn = task_functions[args.task]
