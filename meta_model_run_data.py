@@ -564,7 +564,7 @@ def run_smoking_prediction_task(data_path: Path, model_name: str, results_dir: P
     )
     smoking_col = ColumnToText(TARGET_COL, short_description="smoking status", question=smoking_qa)
     smoking_numeric_qa = DirectNumericQA(
-        colomn=TARGET_COL,
+        column=TARGET_COL,
         text="What is the probability that this person is a smoker?",
     )
 
@@ -715,7 +715,7 @@ def run_booking_cancellation_prediction_task(data_path: Path, model_name: str, r
         value_map=lambda x: f"{x}",
     )
     booking_car_col = ColumnToText(
-        "car parking spaces",
+        "car parking space",
         short_description="booking includes car parking spaces",
         value_map={0: "No", 1: "Yes"},
     )
