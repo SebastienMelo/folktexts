@@ -543,7 +543,7 @@ def run_smoking_prediction_task(data_path: Path, model_name: str, results_dir: P
         value_map=lambda x: f"{x}",
     )
     smoking_cholesterol_col = ColumnToText(
-        "cholesterol",
+        "Cholesterol",
         short_description="cholesterol level",
         value_map=lambda x: f"{x} mg/dL",
     )
