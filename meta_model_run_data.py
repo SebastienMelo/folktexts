@@ -816,7 +816,7 @@ if __name__ == "__main__":
         "airline": DATA_DIR / "train.csv",
         "course": DATA_DIR / "Course_Completion_Prediction.csv",
         "rain": DATA_DIR / "weatherAUS.csv",
-        "loan": DATA_DIR / "loan.csv",
+        "loan": DATA_DIR / "loan_data.csv",
         "smoking": DATA_DIR / "smoking.csv",
         "heart": DATA_DIR / "heart_2020_cleaned.csv",
         "booking": DATA_DIR / "booking.csv",
