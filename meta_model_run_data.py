@@ -780,7 +780,7 @@ if __name__ == "__main__":
         "--task",
         type=str,
         required=True,
-        choices=["meps", "airline", "course", "rain"],
+        choices=["meps", "airline", "course", "rain", "loan", "smoking", "heart", "booking"],
         help="Task to run: meps, airline, course, or rain",
     )
     parser.add_argument(
