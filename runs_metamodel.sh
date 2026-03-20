@@ -7,7 +7,7 @@
 
 
 #SBATCH --cpus-per-task=24
-
+#SBATCH -A nuj@cpu
 
 #SBATCH --hint=nomultithread
 #SBATCH --time=20:00:00
