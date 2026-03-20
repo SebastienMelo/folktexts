@@ -79,7 +79,7 @@ prediction_path_completion = "folktexts-results-metamodel-Llama-70B_full/Llama-3
 name_completion = "course_completion"
 
 
-list_smoking = ["gender", "age", "height(cm)", "weight(kg)", "systolic", "relaxation", "dental_carries", "Cholesterol", "tartar"]
+list_smoking = ["gender", "age", "height(cm)", "weight(kg)", "systolic", "relaxation", "dental carries", "Cholesterol", "tartar"]
 feature_path_smoking = "notebooks/data/smoking.csv"
 smoking_prediction_path = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1085260167/SmokingPrediction_subsampled-0.99_seed-42_hash-1596432086.test_predictions.csv"
 name_smoking = "smoking"
@@ -133,33 +133,33 @@ def preprocess_acs_dataset(task_name, prediction_path, output_folder):
 if __name__ == "__main__":
     tasks = [name_rain, name_loan, name_meps, name_airline_satisfaction, name_completion, name_smoking, name_heart, name_booking]
     prediction_paths = [
-        predictions_path_rain,
-        predictions_path_loan,
-        meps_prediction_path,
-        airline_satisfaction_prediction_path,
-        prediction_path_completion,
+        # predictions_path_rain,
+        # predictions_path_loan,
+        # meps_prediction_path,
+        # airline_satisfaction_prediction_path,
+        # prediction_path_completion,
         smoking_prediction_path,
         heart_prediction_path,
         prediction_path_booking
     ]
 
     features = [
-        list_rain,
-        list_loan,
-        list_meps,
-        list_airline_satisfaction,
-        list_completion,
+        # list_rain,
+        # list_loan,
+        # list_meps,
+        # list_airline_satisfaction,
+        # list_completion,
         list_smoking,
         list_heart,
         list_booking
     ]
 
     feature_paths = [
-        features_path_rain,
-        features_path_loan,
-        features_path_meps,
-        feature_path_airline_satisfaction,
-        feature_path_completion,
+        # features_path_rain,
+        # features_path_loan,
+        # features_path_meps,
+        # feature_path_airline_satisfaction,
+        # feature_path_completion,
         feature_path_smoking,
         feature_path_heart,
         feature_path_booking
