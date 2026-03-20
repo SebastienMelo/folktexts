@@ -92,7 +92,7 @@ name_heart = "heart_disease"
 
 
 list_booking = ["number of adults", "number of children", "car parking space", "lead time", "number of weekend nights", "number of week nights", "average price", "special requests"]
-feature_path_booking = "notebooks/data/bookings.csv"
+feature_path_booking = "notebooks/data/booking.csv"
 prediction_path_booking = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1249158703/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions.csv"
 name_booking = "hotel_booking_cancellations"
 
@@ -138,8 +138,8 @@ if __name__ == "__main__":
         # meps_prediction_path,
         # airline_satisfaction_prediction_path,
         # prediction_path_completion,
-        smoking_prediction_path,
-        heart_prediction_path,
+        # smoking_prediction_path,
+        # heart_prediction_path,
         prediction_path_booking
     ]
 
@@ -149,8 +149,8 @@ if __name__ == "__main__":
         # list_meps,
         # list_airline_satisfaction,
         # list_completion,
-        list_smoking,
-        list_heart,
+        # list_smoking,
+        # list_heart,
         list_booking
     ]
 
@@ -160,8 +160,8 @@ if __name__ == "__main__":
         # features_path_meps,
         # feature_path_airline_satisfaction,
         # feature_path_completion,
-        feature_path_smoking,
-        feature_path_heart,
+        # feature_path_smoking,
+        # feature_path_heart,
         feature_path_booking
     ]
 
