@@ -27,7 +27,7 @@ echo "------------------------------------------------"
 module purge
 module load pytorch-gpu/py3/2.7.0
 T_VALUES=('ACSIncome' 'ACSEmployment' 'ACSPublicCoverage'
-'ACSTravelTime' 'ACSMobility' 'satisfaction' 'loan_default' 'course_completion' 'meps' 'rain_in_australia' 'smoking' 'heart_disease' 'hotel_booking_cancellations')
+'ACSTravelTime' 'ACSMobility' 'satisfaction' 'loan_default' 'course_completion' 'meps' 'smoking' 'heart_disease' 'hotel_booking_cancellations')
 
 
 python -m metamodel_run --dataset ${T_VALUES[$SLURM_ARRAY_TASK_ID]}
