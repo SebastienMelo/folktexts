@@ -79,7 +79,7 @@ prediction_path_completion = "folktexts-results-metamodel-Llama-70B_full/Llama-3
 name_completion = "course_completion"
 
 
-list_smoking = ["gender", "age", "height(cm)", "weight(kg)", "systolic", "relaxation", "dental carries", "Cholesterol", "tartar"]
+list_smoking = ["gender", "age", "height(cm)", "weight(kg)", "systolic", "relaxation", "dental caries", "Cholesterol", "tartar"]
 feature_path_smoking = "notebooks/data/smoking.csv"
 smoking_prediction_path = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1085260167/SmokingPrediction_subsampled-0.99_seed-42_hash-1596432086.test_predictions.csv"
 name_smoking = "smoking"
