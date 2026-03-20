@@ -131,35 +131,43 @@ def preprocess_acs_dataset(task_name, prediction_path, output_folder):
 
 
 if __name__ == "__main__":
-    tasks = [name_rain, name_loan, name_meps, name_airline_satisfaction, name_completion, name_smoking, name_heart, name_booking]
+    tasks = [name_rain, 
+             name_loan, 
+             name_meps, 
+             name_airline_satisfaction, 
+             name_completion, 
+             name_smoking, 
+             name_heart, 
+             name_booking
+             ]
     prediction_paths = [
-        # predictions_path_rain,
-        # predictions_path_loan,
-        # meps_prediction_path,
-        # airline_satisfaction_prediction_path,
-        # prediction_path_completion,
+        predictions_path_rain,
+        predictions_path_loan,
+        meps_prediction_path,
+        airline_satisfaction_prediction_path,
+        prediction_path_completion,
         smoking_prediction_path,
         heart_prediction_path,
         prediction_path_booking
     ]
 
     features = [
-        # list_rain,
-        # list_loan,
-        # list_meps,
-        # list_airline_satisfaction,
-        # list_completion,
+        list_rain,
+        list_loan,
+        list_meps,
+        list_airline_satisfaction,
+        list_completion,
         list_smoking,
         list_heart,
         list_booking
     ]
 
     feature_paths = [
-        # features_path_rain,
-        # features_path_loan,
-        # features_path_meps,
-        # feature_path_airline_satisfaction,
-        # feature_path_completion,
+        features_path_rain,
+        features_path_loan,
+        features_path_meps,
+        feature_path_airline_satisfaction,
+        feature_path_completion,
         feature_path_smoking,
         feature_path_heart,
         feature_path_booking
