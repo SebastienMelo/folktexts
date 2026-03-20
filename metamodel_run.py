@@ -622,6 +622,7 @@ def train_and_evaluate_loop(datasets, test_name, layer_idx):
 
         # Evaluate on test data
         X_test = datasets[test_name]['hidden_states'].values
+        print(f"Layer {layer_idx}: Test hidden states shape: {X_test.shape}")
         
         # y_test_f_star = datasets[test_name]['f_star']
         y_test_labels = datasets[test_name]['labels']
