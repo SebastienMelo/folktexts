@@ -591,9 +591,13 @@ def train_and_evaluate_loop(datasets, test_name, layer_idx):
         # Concatenate training data
         X_train = np.concatenate([datasets[name]['hidden_states'].values for name in train_names], axis=0)
         print(X_train.shape)
+        for name in train_names:
+            print(f"  {name} hidden states shape: {datasets[name]['hidden_states'].shape}")
         
         risk_train = np.concatenate([datasets[name]['risk_scores'] for name in train_names], axis=0)
         print(risk_train.shape)
+        for name in train_names:
+            print(f"  {name} risk scores shape: {datasets[name]['risk_scores'].shape}")
 
         # X_train = np.concatenate([X_train, risk_train.reshape(-1, 1)], axis=1)
 
