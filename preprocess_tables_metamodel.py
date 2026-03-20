@@ -131,16 +131,42 @@ def preprocess_acs_dataset(task_name, prediction_path, output_folder):
 
 
 if __name__ == "__main__":
-    tasks = ['ACSIncome', "ACSMobility", "ACSEmployment", "ACSPublicCoverage", "ACSTravelTime"]
+    tasks = [name_rain, name_loan, name_meps, name_airline_satisfaction, name_completion, name_smoking, name_heart, name_booking]
     prediction_paths = [
-        'folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSIncome/Llama-3.3-70B-Instruct_bench-1206599377/ACSIncome_subsampled-0.4_seed-42_hash-1363604979.test_predictions.csv',
-        "folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSMobility/Llama-3.3-70B-Instruct_bench-3442368737/ACSMobility_subsampled-0.4_seed-42_hash-2590312649.test_predictions.csv",        
-        "folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSEmployment/Llama-3.3-70B-Instruct_bench-2525682897/ACSEmployment_subsampled-0.2_seed-42_hash-1041950717.test_predictions.csv",
-        "folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSPublicCoverage/Llama-3.3-70B-Instruct_bench-988939989/ACSPublicCoverage_subsampled-0.4_seed-42_hash-1833904006.test_predictions.csv",
-        "folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSTravelTime/Llama-3.3-70B-Instruct_bench-3547806008/ACSTravelTime_subsampled-0.4_seed-42_hash-3244950302.test_predictions.csv"
+        predictions_path_rain,
+        predictions_path_loan,
+        meps_prediction_path,
+        airline_satisfaction_prediction_path,
+        prediction_path_completion,
+        smoking_prediction_path,
+        heart_prediction_path,
+        prediction_path_booking
     ]
 
-    for task, prediction_path in zip(tasks, prediction_paths):
-        preprocess_acs_dataset(task, prediction_path, output_folder)
+    features = [
+        list_rain,
+        list_loan,
+        list_meps,
+        list_airline_satisfaction,
+        list_completion,
+        list_smoking,
+        list_heart,
+        list_booking
+    ]
+
+    feature_paths = [
+        features_path_rain,
+        features_path_loan,
+        features_path_meps,
+        feature_path_airline_satisfaction,
+        feature_path_completion,
+        feature_path_smoking,
+        feature_path_heart,
+        feature_path_booking
+    ]
+
+
+    for task_name, prediction_path, columns_to_keep, feature_path in zip(tasks, prediction_paths, features, feature_paths):
+        preprocess_dataset(feature_path, prediction_path, columns_to_keep, output_folder, task_name)
 
 # %%
