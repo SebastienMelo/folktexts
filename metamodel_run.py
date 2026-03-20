@@ -497,15 +497,15 @@ def load_all_datasets():
             risk_scores = pd.read_csv(risk_path).values[:, 0]
             
             # Apply specific label encoding if needed, matching the manual loading above
-            if base_name == "completions":
+            if base_name == "course_completion":
                 labels_df = labels_df.replace({"Completed": 1, "Not Completed": 0})
             elif base_name == "satisfaction":
                 labels_df = labels_df.replace({"satisfied": 1, "neutral or dissatisfied": 0})
             elif base_name == "rain_in_australia":
                 labels_df = labels_df.replace({"Yes": 1, "No": 0})
-            elif base_name == "heart":
+            elif base_name == "heart_disease":
                 labels_df = labels_df.replace({"Yes": 1, "No": 0})
-            elif base_name == "booking":
+            elif base_name == "hotel_booking_cancellations":
                 labels_df = labels_df.replace({"Canceled": 1, "Not_Canceled": 0})
 
             
