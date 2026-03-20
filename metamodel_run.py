@@ -602,7 +602,7 @@ def train_and_evaluate_loop(datasets, test_name, layer_idx):
         # X_train = np.concatenate([X_train, risk_train.reshape(-1, 1)], axis=1)
 
         # Update test hidden_states to include risk scores so dimensions match during prediction
-        datasets[test_name]['hidden_states']['risk_score'] = datasets[test_name]['risk_scores']
+        # datasets[test_name]['hidden_states']['risk_score'] = datasets[test_name]['risk_scores']
 
         y_train = np.concatenate([datasets[name]['labels'] for name in train_names], axis=0)
         print(y_train.shape)
