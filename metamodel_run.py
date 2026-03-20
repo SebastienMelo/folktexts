@@ -11,12 +11,12 @@ from folktexts.acs import ACSDataset
 
 from folktexts.acs import ACSTaskMetadata
 import pandas as pd
-import glest 
+# import glest 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression, RidgeCV
 from sklearn.tree import DecisionTreeRegressor
 
-from glest.plot import grouping_diagram_residuals
+# from glest.plot import grouping_diagram_residuals
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
