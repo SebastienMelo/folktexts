@@ -5,7 +5,7 @@ import pyarrow.parquet as pq
 from pathlib import Path
 from sklearn.tree import DecisionTreeRegressor
 # from glestimation.core import PartitioningEstimate
-#%%
+#%% 
 
 from folktexts.acs import ACSDataset
 
@@ -499,7 +499,7 @@ def load_all_datasets():
             # Apply specific label encoding if needed, matching the manual loading above
             if base_name == "completions":
                 labels_df = labels_df.replace({"Completed": 1, "Not Completed": 0})
-            elif base_name == "passengers":
+            elif base_name == "satisfaction":
                 labels_df = labels_df.replace({"satisfied": 1, "neutral or dissatisfied": 0})
             elif base_name == "rain_in_australia":
                 labels_df = labels_df.replace({"Yes": 1, "No": 0})
