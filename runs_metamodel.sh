@@ -6,7 +6,7 @@
 
 
 
-#SBATCH --cpus-per-task=100
+#SBATCH --cpus-per-task=40
 #SBATCH -A nuj@cpu
 
 #SBATCH --hint=nomultithread
