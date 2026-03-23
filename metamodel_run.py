@@ -720,7 +720,7 @@ def run_layer_analysis(test_dataset_name):
         "ACSTravelTime": "folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSTravelTime/Llama-3.3-70B-Instruct_bench-3547806008/ACSTravelTime_subsampled-0.4_seed-42_hash-3244950302.test_predictions_hidden_states/layer_{}.parquet",
         "ACSMobility": "folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSMobility/Llama-3.3-70B-Instruct_bench-3442368737/ACSMobility_subsampled-0.4_seed-42_hash-2590312649.test_predictions_hidden_states/layer_{}.parquet",
         # "rain_in_australia" : 'folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-3147198227/rain prediction in australia_subsampled-0.5_seed-42_hash-685251864.test_predictions_hidden_states/layer_{}.parquet',
-        "ACSPublicCoverage": 'folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSPublicCoverage/Llama-3.3-70B-Instruct_bench-988939989/ACSPublicCoverage_subsampled-0.4_seed-42_hash-1833904006.test_predictions_hidden_states.layer_{}.parquet',
+        "ACSPublicCoverage": 'folktexts-results-metamodel-Llama70B/model-Llama-3.3-70B-Instruct_task-ACSPublicCoverage/Llama-3.3-70B-Instruct_bench-988939989/ACSPublicCoverage_subsampled-0.4_seed-42_hash-1833904006.test_predictions_hidden_states/layer_{}.parquet',
         "smoking": "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1085260167/SmokingPrediction_subsampled-0.99_seed-42_hash-1596432086.test_predictions_hidden_states/layer_{}.parquet",
         "hotel_booking_cancellations": "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1249158703/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions_hidden_states/layer_{}.parquet",
         "heart_disease": "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-290020217/HeartDiseasePrediction_subsampled-0.15_seed-42_hash-408096573.test_predictions_hidden_states/layer_{}.parquet"
@@ -761,7 +761,7 @@ def run_layer_analysis(test_dataset_name):
             layer_results.append(res)
             # Save intermediate results
             os.makedirs("results_metamodel", exist_ok=True)
-            pd.DataFrame(res).to_csv(f"results_metamodel/results_{test_dataset_name}_layer{layer}.csv", index=False)
+            pd.DataFrame([res]).to_csv(f"results_metamodel/results_{test_dataset_name}_layer{layer}.csv", index=False)
             print(f"Completed analysis for layer {layer} on test dataset {test_dataset_name}.")
         except Exception as e:
             print(f"Error during training/eval for layer {layer}: {e}")
