@@ -30,4 +30,4 @@ T_VALUES=('ACSIncome' 'ACSEmployment' 'ACSPublicCoverage'
 'ACSTravelTime' 'ACSMobility' 'satisfaction' 'loan_default' 'course_completion' 'meps' 'smoking' 'heart_disease' 'hotel_booking_cancellations')
 
 
-python -m metamodel_run --dataset ${T_VALUES[$SLURM_ARRAY_TASK_ID]}
+python -m metamodel_run_single_dataset --dataset ${T_VALUES[$SLURM_ARRAY_TASK_ID]}
