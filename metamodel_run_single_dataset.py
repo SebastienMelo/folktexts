@@ -8,7 +8,8 @@ import pandas as pd
 
 from sklearn.linear_model import LogisticRegression, RidgeCV
 from sklearn.tree import DecisionTreeRegressor
-
+from sklearn.cluster import KMeans
+from sklearn.model_selection import train_test_split
 import numpy as np
 
 import os
