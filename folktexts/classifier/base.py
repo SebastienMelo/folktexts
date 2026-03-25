@@ -316,10 +316,10 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                     # If hidden_states shape is (n_samples, n_layers, hidden_dim)
                     n_layers = 81
                     for layer_idx in range(n_layers):
-                        if layer_idx % 5 == 0:
+                        if layer_idx % 4 == 0:
                             layer_path = hidden_states_base_path / f"layer_{layer_idx}.parquet"
                             hidden_states_df = pd.DataFrame(
-                                hidden_states[:, layer_idx//5, :],
+                                hidden_states[:, layer_idx//4, :],
                                 index=data.index
                             )
                             hidden_states_df.columns = hidden_states_df.columns.astype(str)
