@@ -367,7 +367,7 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
         fill_value = -1
         risk_scores = np.empty(len(df))
         risk_scores.fill(fill_value)    # fill with -1's
-        hidden_states = np.empty((len(df), 32//4 +1, 3072))  # placeholder for hidden states
+        hidden_states = np.empty((len(df), 32//4, 3072))  # placeholder for hidden states
 
         batch_size = self._inference_kwargs["batch_size"]
         context_size = self._inference_kwargs["context_size"]
