@@ -15,7 +15,7 @@
 #SBATCH --time=99:00:00
 #SBATCH --qos=qos_gpu_h100-t4
 
-#SBATCH --array=0-1
+#SBATCH --array=0-9
 
 echo "------------------------------------------------"
 echo "Slurm Job ID: $SLURM_JOB_ID"  
