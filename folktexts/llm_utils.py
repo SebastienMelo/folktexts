@@ -61,7 +61,7 @@ def query_model_batch(
         # Get hidden states of the last token for all layers
         # print(len(outputs.hidden_states))
         # print(outputs.hidden_states[0].shape)
-        last_token_hidden_states = [layer_hidden[:, -1, :] for i, layer_hidden in enumerate(outputs.hidden_states) if i % 5 == 0]
+        last_token_hidden_states = [layer_hidden[:, -1, :] for i, layer_hidden in enumerate(outputs.hidden_states) if i % 4 == 0]
 
     # Probabilities corresponding to the last token after the prompt
     last_token_logits = logits[torch.arange(len(idx_last_token)), idx_last_token]

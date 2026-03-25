@@ -162,6 +162,7 @@ def run_meps_task(data_path: Path, model_name: str, results_dir: Path):
 def run_airline_satisfaction_task(data_path: Path, model_name: str, results_dir: Path):
     """Run airline passenger satisfaction prediction task."""
     airline_age_col = ColumnToText("Age", short_description="age", value_map=lambda x: f"{int(x)} years old")
+    
     airline_customer_type_col = ColumnToText(
         "Customer Type", short_description="customer type",
         value_map={"Loyal Customer": "Loyal Customer", "disloyal Customer": "disloyal Customer"},
