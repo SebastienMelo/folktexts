@@ -793,7 +793,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--results-dir",
         type=Path,
-        default=Path("./folktexts-results-metamodel-Llama-70B_full"),
+        default=Path("./folktexts-results-metamodel-Llama-3B_full"),
         help="Directory to save results",
     )
 
