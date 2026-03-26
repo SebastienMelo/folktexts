@@ -28,5 +28,5 @@ module purge
 module load pytorch-gpu/py3/2.7.0
 T_VALUES=('ACSIncome' 'ACSEmployment' 'ACSPublicCoverage' 'ACSTravelTime' 'ACSMobility')
 
-
-python -m metamodel_run --dataset ${T_VALUES[$SLURM_ARRAY_TASK_ID]} --output_dir "results_metamodel_all_datasets_llama70b_acs"
+python -m preprocess_tables_metamodel
+#python -m metamodel_run --dataset ${T_VALUES[$SLURM_ARRAY_TASK_ID]} --output_dir "results_metamodel_all_datasets_llama70b_acs"

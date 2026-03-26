@@ -48,52 +48,52 @@ def preprocess_dataset(feature_path, prediction_path, columns_to_keep, output_fo
     return merged_df, f, y
 
 
-output_folder = "merged_datasets_Llama70B_full"
+output_folder = "merged_datasets_Llama3B_full"
 
 list_rain = ["Location", "MinTemp", "MaxTemp", "Sunshine", "WindGustSpeed", "WindGustDir", "Humidity9am", "Humidity3pm", "Pressure9am", "Pressure3pm", "Cloud9am", "Cloud3pm"]
 features_path_rain = "notebooks/data/weatherAUS.csv"
-predictions_path_rain = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-3147198227/rain prediction in australia_subsampled-0.5_seed-42_hash-685251864.test_predictions.csv"
+predictions_path_rain = "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-676173017/rain prediction in australia_subsampled-0.5_seed-42_hash-685251864.test_predictions.csv"
 name_rain = "rain_in_australia"
 
 list_loan = ["person_age", "person_gender", "person_education", "person_income", "person_emp_exp", "person_home_ownership", "loan_amnt", "loan_int_rate", "loan_intent", "loan_percent_income", "cb_person_cred_hist_length"]
 features_path_loan = "notebooks/data/loan_data.csv"
-predictions_path_loan = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-2130411282/LoanDefault_full_seed-42_hash-4198601886.test_predictions.csv"
+predictions_path_loan = "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2698440545/LoanDefault_full_seed-42_hash-4198601886.test_predictions.csv"
 name_loan = "loan_default"
 
 
 list_meps = ["AGE", "REGION", "SEX", "MARRY", "HONRDC", "RTHLTH", "MNHLTH", "POVCAT", "INSCOV", "DIABDX", "HIBPDX"]
 features_path_meps = "notebooks/data/meps.csv"
-meps_prediction_path = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-2962498681/health-care utilization_full_seed-42_hash-180138447.test_predictions.csv"
+meps_prediction_path = "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2290283275/health-care utilization_full_seed-42_hash-180138447.test_predictions.csv"
 name_meps = "meps"
 
 
 list_airline_satisfaction = ["Age", "Customer Type", "Gender", "Type of Travel", "Class", "Flight Distance", "Inflight wifi service", "Food and drink", "Seat comfort", "Inflight wifi service", "Cleanliness"]
 feature_path_airline_satisfaction = "notebooks/data/train.csv"
-airline_satisfaction_prediction_path = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-4169613192/airline passenger satisfaction_subsampled-0.5_seed-42_hash-2223126573.test_predictions.csv"
+airline_satisfaction_prediction_path = "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-4108750095/airline passenger satisfaction_subsampled-0.5_seed-42_hash-2223126573.test_predictions.csv"
 name_airline_satisfaction = "satisfaction"
 
 
 list_completion = ["Age", "Education_Level", "Gender", "Employment_Status", "Login_Frequency", "Course_Level", "Category", "Course_Duration_Days", "Time_Spent_Hours", "Internet_Connection_Quality"]
 feature_path_completion = "notebooks/data/Course_Completion_Prediction.csv"
-prediction_path_completion = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1051901534/course completion prediction_subsampled-0.5_seed-42_hash-1848123039.test_predictions.csv"
+prediction_path_completion = "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2959910133/course completion prediction_subsampled-0.5_seed-42_hash-1848123039.test_predictions.csv"
 name_completion = "course_completion"
 
 
 list_smoking = ["gender", "age", "height(cm)", "weight(kg)", "systolic", "relaxation", "dental caries", "Cholesterol", "tartar"]
 feature_path_smoking = "notebooks/data/smoking.csv"
-smoking_prediction_path = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1085260167/SmokingPrediction_subsampled-0.99_seed-42_hash-1596432086.test_predictions.csv"
+smoking_prediction_path = "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-1001150751/SmokingPrediction_subsampled-0.99_seed-42_hash-1596432086.test_predictions.csv"
 name_smoking = "smoking"
 
 
 list_heart = ["Sex", "PhysicalHealth", "MentalHealth", "SleepTime", "PhysicalActivity", "AgeCategory", "BMI", "Race", "AlcoholDrinking", "GenHealth"]
 feature_path_heart = "notebooks/data/heart_2020_cleaned.csv"
-heart_prediction_path = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-290020217/HeartDiseasePrediction_subsampled-0.15_seed-42_hash-408096573.test_predictions.csv"
+heart_prediction_path = "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-53124853/HeartDiseasePrediction_subsampled-0.15_seed-42_hash-408096573.test_predictions.csv"
 name_heart = "heart_disease"
 
 
 list_booking = ["number of adults", "number of children", "car parking space", "lead time", "number of weekend nights", "number of week nights", "average price", "special requests"]
 feature_path_booking = "notebooks/data/booking.csv"
-prediction_path_booking = "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1249158703/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions.csv"
+prediction_path_booking = "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-464073147/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions.csv"
 name_booking = "hotel_booking_cancellations"
 
 def preprocess_acs_dataset(task_name, prediction_path, output_folder):
@@ -172,7 +172,19 @@ if __name__ == "__main__":
         feature_path_heart,
         feature_path_booking
     ]
+    
 
+    tasks = ['ACSIncome', "ACSMobility", "ACSEmployment", "ACSPublicCoverage", "ACSTravelTime"]
+    prediction_paths = [
+        'folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSIncome/Llama-3.2-3B_bench-617020176/ACSIncome_subsampled-0.4_seed-42_hash-1363604979.test_predictions.csv',
+        "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSMobility/Llama-3.2-3B_bench-1561849499/ACSMobility_subsampled-0.4_seed-42_hash-2590312649.test_predictions.csv",        
+        "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSEmployment/Llama-3.2-3B_bench-1145175419/ACSEmployment_subsampled-0.2_seed-42_hash-1041950717.test_predictions.csv",
+        "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSPublicCoverage/Llama-3.2-3B_bench-1325120570/ACSPublicCoverage_subsampled-0.4_seed-42_hash-1833904006.test_predictions.csv",
+        "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSTravelTime/Llama-3.2-3B_bench-1402241236/ACSTravelTime_subsampled-0.4_seed-42_hash-3244950302.test_predictions.csv"
+    ]
+
+    for task, prediction_path in zip(tasks, prediction_paths):
+        preprocess_acs_dataset(task, prediction_path, output_folder)
 
     for task_name, prediction_path, columns_to_keep, feature_path in zip(tasks, prediction_paths, features, feature_paths):
         preprocess_dataset(feature_path, prediction_path, columns_to_keep, output_folder, task_name)
