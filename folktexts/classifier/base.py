@@ -314,7 +314,7 @@ class LLMClassifier(BaseEstimator, ClassifierMixin, ABC):
                         hidden_states_df.to_parquet(layer_path, index=True)
                 elif len(hidden_states.shape) == 3:
                     # If hidden_states shape is (n_samples, n_layers, hidden_dim)
-                    n_layers = 81
+                    n_layers = 32  # Assuming 32 layers total, adjust if different
                     for layer_idx in range(n_layers):
                         if layer_idx % 4 == 0:
                             layer_path = hidden_states_base_path / f"layer_{layer_idx}.parquet"
