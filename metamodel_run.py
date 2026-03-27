@@ -732,13 +732,13 @@ def run_layer_analysis(test_dataset_name):
     "ACSMobility": "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSMobility/Llama-3.2-3B_bench-1561849499/ACSMobility_subsampled-0.4_seed-42_hash-2590312649.test_predictions_hidden_states",
     "ACSPublicCoverage":"folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSPublicCoverage/Llama-3.2-3B_bench-1325120570/ACSPublicCoverage_subsampled-0.4_seed-42_hash-1833904006.test_predictions_hidden_states",
     "ACSTravelTime": "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSTravelTime/Llama-3.2-3B_bench-1402241236/ACSTravelTime_subsampled-0.4_seed-42_hash-3244950302.test_predictions_hidden_states",
-    "smoking": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-1001150751/SmokingPrediction_subsampled-0.99_seed-42_hash-1596432086.test_predictions_hidden_states",
-    "meps": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2290283275/health-care utilization_full_seed-42_hash-180138447.test_predictions_hidden_states",
-    "loan_default": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2698440545/LoanDefault_full_seed-42_hash-4198601886.test_predictions_hidden_states",
-    "course_completion": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2959910133/course completion prediction_subsampled-0.5_seed-42_hash-1848123039.test_predictions_hidden_states",
-    "satisfaction": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-4108750095/airline passenger satisfaction_subsampled-0.5_seed-42_hash-2223126573.test_predictions_hidden_states",
-    "hotel_booking_cancellations": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-464073147/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions_hidden_states",
-    "heart_disease": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-53124853/HeartDiseasePrediction_subsampled-0.15_seed-42_hash-408096573.test_predictions_hidden_states",
+    # "smoking": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-1001150751/SmokingPrediction_subsampled-0.99_seed-42_hash-1596432086.test_predictions_hidden_states",
+    # "meps": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2290283275/health-care utilization_full_seed-42_hash-180138447.test_predictions_hidden_states",
+    # "loan_default": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2698440545/LoanDefault_full_seed-42_hash-4198601886.test_predictions_hidden_states",
+    # "course_completion": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2959910133/course completion prediction_subsampled-0.5_seed-42_hash-1848123039.test_predictions_hidden_states",
+    # "satisfaction": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-4108750095/airline passenger satisfaction_subsampled-0.5_seed-42_hash-2223126573.test_predictions_hidden_states",
+    # "hotel_booking_cancellations": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-464073147/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions_hidden_states",
+    # "heart_disease": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-53124853/HeartDiseasePrediction_subsampled-0.15_seed-42_hash-408096573.test_predictions_hidden_states",
 
     }
 
