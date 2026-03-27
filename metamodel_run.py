@@ -482,14 +482,14 @@ class PartitioningEstimate:
 
 def load_all_datasets():
     datasets = {}
-    feature_files = glob.glob("merged_datasets_Llama70B_full/*_features.csv")
+    feature_files = glob.glob("merged_datasets_Llama3B_full/*_features.csv")
     
     for file_path in feature_files:
         base_name = os.path.basename(file_path).replace("_features.csv", "")
         
-        feature_path = f"merged_datasets_Llama70B_full/{base_name}_features.csv"
-        label_path = f"merged_datasets_Llama70B_full/{base_name}_labels.csv"
-        risk_path = f"merged_datasets_Llama70B_full/{base_name}_risk_scores.csv"
+        feature_path = f"merged_datasets_Llama3B_full/{base_name}_features.csv"
+        label_path = f"merged_datasets_Llama3B_full/{base_name}_labels.csv"
+        risk_path = f"merged_datasets_Llama3B_full/{base_name}_risk_scores.csv"
         
         if os.path.exists(feature_path) and os.path.exists(label_path) and os.path.exists(risk_path):
             features = pd.read_csv(feature_path)
@@ -658,9 +658,9 @@ def train_and_evaluate_loop(datasets, test_name, layer_idx):
         brier_f_star_hat = np.mean((y_test_f_star - y_test_test)**2)
         
         print(f"Layer {layer_idx}: Test Set: {test_name}")
-        print(f"Layer {layer_idx}: Brier Score (NN) = {brier_nn:.6f}")
+        print(f"Layer {layer_idx}: Brier Score (Internal Prob) = {brier_nn:.6f}")
         print(f"Layer {layer_idx}: Brier Score (Risk Scores) = {brier_risk_score:.6f}")
-        print(f"Layer {layer_idx}: Brier Score (f_star) = {brier_f_star_hat:.6f}")
+        print(f"Layer {layer_idx}: Brier Score (Residual estimate) = {brier_f_star_hat:.6f}")
         print(f"Layer {layer_idx}: MSE = {mse_nn:.6f}")
         
         return {
@@ -725,6 +725,23 @@ def run_layer_analysis(test_dataset_name):
         # "hotel_booking_cancellations": "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-1249158703/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions_hidden_states/layer_{}.parquet",
         # "heart_disease": "folktexts-results-metamodel-Llama-70B_full/Llama-3.3-70B-Instruct_bench-290020217/HeartDiseasePrediction_subsampled-0.15_seed-42_hash-408096573.test_predictions_hidden_states/layer_{}.parquet"
     }
+
+    parquet_map_llama3B = {
+    "ACSEmployment": "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSEmployment/Llama-3.2-3B_bench-1145175419/ACSEmployment_subsampled-0.2_seed-42_hash-1041950717.test_predictions_hidden_states",
+    "ACSIncome": "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSIncome/Llama-3.2-3B_bench-617020176/ACSIncome_subsampled-0.4_seed-42_hash-1363604979.test_predictions_hidden_states",
+    "ACSMobility": "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSMobility/Llama-3.2-3B_bench-1561849499/ACSMobility_subsampled-0.4_seed-42_hash-2590312649.test_predictions_hidden_states",
+    "ACSPublicCoverage":"folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSPublicCoverage/Llama-3.2-3B_bench-1325120570/ACSPublicCoverage_subsampled-0.4_seed-42_hash-1833904006.test_predictions_hidden_states",
+    "ACSTravelTime": "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSTravelTime/Llama-3.2-3B_bench-1402241236/ACSTravelTime_subsampled-0.4_seed-42_hash-3244950302.test_predictions_hidden_states",
+    "smoking": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-1001150751/SmokingPrediction_subsampled-0.99_seed-42_hash-1596432086.test_predictions_hidden_states",
+    "meps": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2290283275/health-care utilization_full_seed-42_hash-180138447.test_predictions_hidden_states",
+    "loan_default": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2698440545/LoanDefault_full_seed-42_hash-4198601886.test_predictions_hidden_states",
+    "course_completion": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-2959910133/course completion prediction_subsampled-0.5_seed-42_hash-1848123039.test_predictions_hidden_states",
+    "satisfaction": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-4108750095/airline passenger satisfaction_subsampled-0.5_seed-42_hash-2223126573.test_predictions_hidden_states",
+    "hotel_booking_cancellations": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-464073147/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions_hidden_states",
+    "heart_disease": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-53124853/HeartDiseasePrediction_subsampled-0.15_seed-42_hash-408096573.test_predictions_hidden_states",
+    
+    }
+
     layer_results = []
     
     for layer in range(0, 81, 5): 
