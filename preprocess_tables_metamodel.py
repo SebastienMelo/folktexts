@@ -131,7 +131,8 @@ def preprocess_acs_dataset(task_name, prediction_path, output_folder):
 
 
 if __name__ == "__main__":
-    tasks = [name_rain, 
+    tasks = [
+        # name_rain, 
              name_loan, 
              name_meps, 
              name_airline_satisfaction, 
@@ -141,7 +142,7 @@ if __name__ == "__main__":
              name_booking
              ]
     prediction_paths = [
-        predictions_path_rain,
+        # predictions_path_rain,
         predictions_path_loan,
         meps_prediction_path,
         airline_satisfaction_prediction_path,
@@ -152,7 +153,7 @@ if __name__ == "__main__":
     ]
 
     features = [
-        list_rain,
+        # list_rain,
         list_loan,
         list_meps,
         list_airline_satisfaction,
@@ -163,7 +164,7 @@ if __name__ == "__main__":
     ]
 
     feature_paths = [
-        features_path_rain,
+        # features_path_rain,
         features_path_loan,
         features_path_meps,
         feature_path_airline_satisfaction,
@@ -174,17 +175,17 @@ if __name__ == "__main__":
     ]
     
 
-    tasks = ['ACSIncome', "ACSMobility", "ACSEmployment", "ACSPublicCoverage", "ACSTravelTime"]
-    prediction_paths = [
-        'folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSIncome/Llama-3.2-3B_bench-617020176/ACSIncome_subsampled-0.4_seed-42_hash-1363604979.test_predictions.csv',
-        "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSMobility/Llama-3.2-3B_bench-1561849499/ACSMobility_subsampled-0.4_seed-42_hash-2590312649.test_predictions.csv",        
-        "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSEmployment/Llama-3.2-3B_bench-1145175419/ACSEmployment_subsampled-0.2_seed-42_hash-1041950717.test_predictions.csv",
-        "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSPublicCoverage/Llama-3.2-3B_bench-1325120570/ACSPublicCoverage_subsampled-0.4_seed-42_hash-1833904006.test_predictions.csv",
-        "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSTravelTime/Llama-3.2-3B_bench-1402241236/ACSTravelTime_subsampled-0.4_seed-42_hash-3244950302.test_predictions.csv"
-    ]
+    # tasks = ['ACSIncome', "ACSMobility", "ACSEmployment", "ACSPublicCoverage", "ACSTravelTime"]
+    # prediction_paths = [
+    #     'folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSIncome/Llama-3.2-3B_bench-617020176/ACSIncome_subsampled-0.4_seed-42_hash-1363604979.test_predictions.csv',
+    #     "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSMobility/Llama-3.2-3B_bench-1561849499/ACSMobility_subsampled-0.4_seed-42_hash-2590312649.test_predictions.csv",        
+    #     "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSEmployment/Llama-3.2-3B_bench-1145175419/ACSEmployment_subsampled-0.2_seed-42_hash-1041950717.test_predictions.csv",
+    #     "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSPublicCoverage/Llama-3.2-3B_bench-1325120570/ACSPublicCoverage_subsampled-0.4_seed-42_hash-1833904006.test_predictions.csv",
+    #     "folktexts-results-metamodel-Llama3B/model-Llama-3.2-3B_task-ACSTravelTime/Llama-3.2-3B_bench-1402241236/ACSTravelTime_subsampled-0.4_seed-42_hash-3244950302.test_predictions.csv"
+    # ]
 
-    for task, prediction_path in zip(tasks, prediction_paths):
-        preprocess_acs_dataset(task, prediction_path, output_folder)
+    # for task, prediction_path in zip(tasks, prediction_paths):
+    #     preprocess_acs_dataset(task, prediction_path, output_folder)
 
     for task_name, prediction_path, columns_to_keep, feature_path in zip(tasks, prediction_paths, features, feature_paths):
         preprocess_dataset(feature_path, prediction_path, columns_to_keep, output_folder, task_name)
