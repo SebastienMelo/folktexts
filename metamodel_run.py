@@ -739,7 +739,7 @@ def run_layer_analysis(test_dataset_name):
     "satisfaction": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-4108750095/airline passenger satisfaction_subsampled-0.5_seed-42_hash-2223126573.test_predictions_hidden_states",
     "hotel_booking_cancellations": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-464073147/HotelBookingCancellation_full_seed-42_hash-1846594368.test_predictions_hidden_states",
     "heart_disease": "folktexts-results-metamodel-Llama-3B_full/Llama-3.2-3B_bench-53124853/HeartDiseasePrediction_subsampled-0.15_seed-42_hash-408096573.test_predictions_hidden_states",
-    
+
     }
 
     layer_results = []
@@ -748,7 +748,7 @@ def run_layer_analysis(test_dataset_name):
         layer_datasets = {}
         
         # Load hidden states for this layer and attach to dataset objects
-        for ds_name, path_template in parquet_map.items():
+        for ds_name, path_template in parquet_map_llama3B.items():
             parquet_path = path_template.format(layer)
             if not os.path.exists(parquet_path):
                 # Only print warning once per dataset (e.g. at layer 0) to reduce spam
